@@ -12,14 +12,21 @@ interface Range {
 export function Ranges() {
   
 
-  let defaultRanges: Range[] = [
+  // let defaultRanges: Range[] = [
+  //   {id:'fixed', label:'Fixed costs', color: cyan, value:[0,50]}, 
+  //   {id:'savings', label:'Savings', color: magenta, value:[50,60]}, 
+  //   {id:'investment', label:'Investment', color: gold, value:[60,70]}, 
+  //   {id:'free', label:'Free guilt spending', color: volcano, value:[70,100]}
+  // ]
+
+  let defaultRanges = useRef<Range[]>([
     {id:'fixed', label:'Fixed costs', color: cyan, value:[0,50]}, 
     {id:'savings', label:'Savings', color: magenta, value:[50,60]}, 
     {id:'investment', label:'Investment', color: gold, value:[60,70]}, 
     {id:'free', label:'Free guilt spending', color: volcano, value:[70,100]}
-  ]
+  ]);
 
-  const [ranges, setRanges] = useState<Range[]>([...defaultRanges])
+  const [ranges, setRanges] = useState<Range[]>([...defaultRanges.current])
   const [drag, setDrag] = useState<string>('idle')
 
   const onChange = (value: number[], idx: number) => {
@@ -29,29 +36,33 @@ export function Ranges() {
     if(idx === ranges.length - 1 && value[1] !== 100) return 
 
     // Which handle changes
-    const prev = defaultRanges[idx].value
-    console.log("🚀 ~ prev:", prev, value)
+    const prev = defaultRanges.current[idx].value    
     const delta = [prev[0] - value[0], prev[1] - value[1]]
+
+    const _ranges = [...ranges]
+    console.log("🚀 ~ value:", value)
     // console.log("🚀 ~ delta:", delta)
     
     if(delta[0] !== 0 ) {
-      // console.log("Left")
+      if(idx > 0) _ranges[idx - 1].value[1] = value[0]
+      console.log("Left", idx)
+      console.log("_ranges", _ranges)
     }
 
     if(delta[1] !== 0 ) {
-      // console.log("Right")
+      console.log("Right")
     }
 
     // console.log("🚀 ~ delta:", delta)
     // console.log('onChange: ', idx, value);
-    const _ranges = [...ranges]
     _ranges[idx].value = value
     setRanges(_ranges);
   };
 
   useEffect(() => {
     if(drag === 'complete') {
-      defaultRanges = ranges
+      defaultRanges.current = ranges
+      // setDrag('idle')
     }
   }, [drag]);
 
@@ -77,7 +88,7 @@ export function Ranges() {
           <Slider 
             range
             onChange={(e) => onChange(e, i)} 
-            onChangeComplete={(e) => onChangeComplete(e, i)} 
+            onChangeComplete={() => onChangeComplete()} 
             value={range.value}
             min={0}
             max={100}
