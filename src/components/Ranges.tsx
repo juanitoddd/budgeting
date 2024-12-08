@@ -19,7 +19,7 @@ export function Ranges() {
   //   {id:'free', label:'Free guilt spending', color: volcano, value:[70,100]}
   // ]
 
-  let defaultRanges = useRef<Range[]>([
+  const defaultRanges = useRef<Range[]>([
     {id:'fixed', label:'Fixed costs', color: cyan, value:[0,50]}, 
     {id:'savings', label:'Savings', color: magenta, value:[50,60]}, 
     {id:'investment', label:'Investment', color: gold, value:[60,70]}, 
@@ -40,16 +40,17 @@ export function Ranges() {
     const delta = [prev[0] - value[0], prev[1] - value[1]]
 
     const _ranges = [...ranges]
-    console.log("🚀 ~ value:", value)
+    // console.log("🚀 ~ value:", value)
     // console.log("🚀 ~ delta:", delta)
     
     if(delta[0] !== 0 ) {
       if(idx > 0) _ranges[idx - 1].value[1] = value[0]
       console.log("Left", idx)
-      console.log("_ranges", _ranges)
+      // console.log("_range", _ranges[idx - 1])
     }
 
     if(delta[1] !== 0 ) {
+      if(idx < ranges.length - 1) _ranges[idx + 1].value[0] = value[1]
       console.log("Right")
     }
 
@@ -84,7 +85,7 @@ export function Ranges() {
               }
             }
           }} >
-          <div>{range.label}</div>
+          <div>{range.label} - ({range.value[0]},{range.value[1]})</div>
           <Slider 
             range
             onChange={(e) => onChange(e, i)} 
