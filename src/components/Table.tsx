@@ -28,7 +28,7 @@ export function ValueTable() {
     {
       title: 'Value', 
       key: 'value',      
-      render: (_, record) => (<div>{(record.value[1] - record.value[0]) * input.income / 100}</div>)
+      render: (_, record) => (<div>{(record.value[1] - record.value[0]) * input.income / 100} {input.currency}</div>)
     }
   ];
 
