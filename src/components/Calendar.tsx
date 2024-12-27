@@ -19,7 +19,17 @@ export function MonthlyCalendar() {
 
   return (
     <div>
-      <ConfigProvider theme={{algorithm: darkAlgorithm}}>        
+      <ConfigProvider theme={
+        {components: 
+          {
+            Calendar: {
+              fullBg: "rgb(31 41 55)",
+              fullPanelBg: 'rgb(31 41 55)',
+              colorText: '#fff',
+              colorTextDisabled: '#666'
+            },            
+          }
+        }} >        
         <Calendar fullscreen={false} onPanelChange={onPanelChange} />
       </ConfigProvider>
     </div>

@@ -35,8 +35,7 @@ export function MainGrid() {
         <ValueInput />
       </div>
       <div className="bg-gray-800" key="btc">
-        {/* <ChartWidget symbol="btcusd" /> */}
-        <div>Hello</div>
+        <ChartWidget symbol="btcusd" />        
       </div>      
       <div className={generalClass} key="slider">
         <Sliders />
@@ -44,7 +43,7 @@ export function MainGrid() {
       <div className={generalClass} key="table">
         <ValueTable />
       </div>     
-      <div className={generalClass} key="calendar">
+      <div className="bg-gray-800" key="calendar">
         <MonthlyCalendar />
       </div>      
     </ResponsiveGridLayout>

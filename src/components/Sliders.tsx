@@ -80,8 +80,8 @@ export function Sliders() {
               }
             }} >
             <div className="flex w-full justify-between mb-2">
-              <div><span className='font-bold text-xl'>{c.label}</span> <Space /> {(c.value[1] - c.value[0])}%</div>              
-              <div className='font-bold text-xl'>{c.spent} {input.currency} / {getItemNominal(c)} {input.currency}</div>              
+              <div><span className='font-bold text-xl'>{c.label}</span> <Space /> <span className="text-slate-400">{(c.value[1] - c.value[0])}%</span></div>              
+              <div className='font-bold text-xl text-slate-300'>{c.spent} {input.currency} <span className="text-slate-500">/</span> {getItemNominal(c)} {input.currency}</div>              
             </div>            
             <Slider
               style={{margin: '0px 5px'}}

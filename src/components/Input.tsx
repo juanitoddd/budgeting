@@ -32,7 +32,7 @@ export function ValueInput() {
   return (
     <div>
       <ConfigProvider theme={{algorithm: darkAlgorithm}}>
-        <h1 className="text-lg mb-2 font-bold text-2xl">Monthly Income Total</h1>
+        <h1 className="text-lg mb-2 font-bold text-xl">Monthly Income Total</h1>
         <div className='flex'>
           <Select
             size="large" 
