@@ -26,18 +26,34 @@ export function ValueTable() {
       render: (_, record) => (<div>{(record.value[1] - record.value[0])}%</div>)
     },
     {
-      title: 'Value', 
-      key: 'value',      
+      title: 'Spent', 
+      key: 'spent',
+      dataIndex: 'spent',
+      render: (text) => <a>{text} {input.currency}</a>,
+    },
+    {
+      title: 'Target', 
+      key: 'target',      
       render: (_, record) => (<div>{(record.value[1] - record.value[0]) * input.income / 100} {input.currency}</div>)
     }
   ];
 
-  const data: Category[] = categories;  
+  const data: Category[] = categories;
+
+  const getRowClass = (record: Category): string => {    
+    if( record.spent > (input.income * ((record.value[1] - record.value[0]) / 100) )) {
+      return 'bg-red-950'
+    }
+    if( record.spent === (input.income * ((record.value[1] - record.value[0]) / 100) )) {
+      return 'bg-green-900'
+    }
+    return ''
+  }
     
   return (
     <div>
       <ConfigProvider theme={{algorithm: darkAlgorithm}}>
-        <Table<Category> columns={columns} dataSource={data} bordered pagination={false} />
+        <Table<Category> rowClassName={(record) => getRowClass(record)} columns={columns} dataSource={data} bordered pagination={false} />
       </ConfigProvider>
     </div>
   )

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ConfigProvider, InputNumber, Select, theme } from 'antd';
 
-import type { TableProps } from 'antd';
 import {useDispatch, useSelector} from 'react-redux'
 import { AppDispatch, RootState } from '../store/store';
-import { FaMoneyBillAlt } from 'react-icons/fa';
 import { InputState, setCurrency, setIncome } from '../slices/inputSlice';
 
 export function ValueInput() {          
@@ -14,8 +12,7 @@ export function ValueInput() {
   const [prefix, setPrefix] = useState<string>('')
   const { darkAlgorithm } = theme;   
   
-  const onChange = (e) => {
-    console.log("e", e)
+  const onChange = (e) => {    
     dispatch(setIncome(e))
   }
 
@@ -24,8 +21,7 @@ export function ValueInput() {
     dispatch(setCurrency(e))
   }
 
-  useEffect(() => {
-    console.log("change", input.currency)
+  useEffect(() => {    
     setPrefix(input.currency);
   }, [input.currency]);
   
@@ -36,11 +32,12 @@ export function ValueInput() {
   return (
     <div>
       <ConfigProvider theme={{algorithm: darkAlgorithm}}>
+        <h1 className="text-lg mb-2 font-bold text-2xl">Monthly Income Total</h1>
         <div className='flex'>
-
           <Select
+            size="large" 
             defaultValue="€"
-            style={{ width: 120 }}
+            style={{ width: 100 }}
             onChange={handleChange}
             options={[
               { value: '$', label: 'Dollar $' },

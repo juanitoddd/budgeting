@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import './App.css'
 import { MainGrid } from './components/MainGrid'
+import './App.css'
 
 function App() {  
 
