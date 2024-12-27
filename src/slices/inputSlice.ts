@@ -7,7 +7,7 @@ export interface InputState {
 
 const initialState: InputState =
 {
-  income: 0,
+  income: 2860,
   currency: '€'
 }
 

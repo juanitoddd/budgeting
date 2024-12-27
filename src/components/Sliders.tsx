@@ -54,7 +54,9 @@ export function Sliders() {
     return `${Math.round(p)}%`    
   }
 
-  const getRelativePercentage = (c: Category): number => c.spent * 100 / (input.income * (c.value[1] - c.value[0]) / 100)
+  const getCategorySpences = (c: Category) => c.items.reduce((acc, cur) => acc + cur.value, 0)
+
+  const getRelativePercentage = (c: Category): number => Math.round(getCategorySpences(c) * 100 / (input.income * (c.value[1] - c.value[0]) / 100))
 
   const getItemNominal = (c: Category): number => input.income * (c.value[1] - c.value[0]) / 100
 
@@ -81,7 +83,7 @@ export function Sliders() {
             }} >
             <div className="flex w-full justify-between mb-2">
               <div><span className='font-bold text-xl'>{c.label}</span> <Space /> <span className="text-slate-400">{(c.value[1] - c.value[0])}%</span></div>              
-              <div className='font-bold text-xl text-slate-300'>{c.spent} {input.currency} <span className="text-slate-500">/</span> {getItemNominal(c)} {input.currency}</div>              
+              <div className='font-bold text-xl text-slate-300'>{getCategorySpences(c)} {input.currency} <span className="text-slate-500">/</span> {getItemNominal(c)} {input.currency}</div>              
             </div>            
             <Slider
               style={{margin: '0px 5px'}}
@@ -94,7 +96,7 @@ export function Sliders() {
             />
             {width && height && input.income ? 
               <div className="relative" style={{left: bars[i][0], width: (bars[i][1] - bars[i][0])}}>                
-                {c.spent <= (input.income * ((c.value[1] - c.value[0]) / 100)) ?
+                {getCategorySpences(c) <= (input.income * ((c.value[1] - c.value[0]) / 100)) ?
                   <Progress
                     strokeColor={progressGradient}
                     size="small" 

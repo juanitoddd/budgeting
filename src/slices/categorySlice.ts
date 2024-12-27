@@ -19,8 +19,28 @@ export interface Category {
 
 const initialState: Category[] =
 [
-  {id:'fixed', label:'Fixed costs', color: cyan, value:[0,50], items:[], spent: 50}, 
-  {id:'savings', label:'Savings', color: magenta, value:[50,60], items:[], spent: 0}, 
+  {
+    id:'fixed', 
+    label:'Fixed costs', 
+    color: cyan, 
+    value:[0,50], 
+    items:[
+      {id:'rent', label:'Rent', value: 820},
+      {id:'electricity', label:'Electricity', value: 140},
+      {id:'internet', label:'Internet', value: 20}
+    ], 
+    spent: 100
+  }, 
+  {
+    id:'savings', 
+    label:'Savings', 
+    color: magenta, 
+    value:[50,60], 
+    items:[
+      {id:'bitcoin', label:'Bitcoin', value: 280},
+    ], 
+    spent: 0
+  }, 
   {id:'investment', label:'Investment', color: gold, value:[60,70], items:[], spent: 0}, 
   {id:'free', label:'Free guilt spending', color: volcano, value:[70,100], items:[], spent: 0}
 ];
@@ -34,6 +54,11 @@ export const categorySlice = createSlice({
     },
     addCategory: (state, action: PayloadAction<Category>) => {
       return state.concat(action.payload)
+    },
+    addItem: (state, action: PayloadAction<[string, Item]>) => {
+      const categoryIdx = state.findIndex((category: Category) => category.id === action.payload[0])
+      state[categoryIdx].items.concat(action.payload[1])
+      return [...state]
     },
   },
 });

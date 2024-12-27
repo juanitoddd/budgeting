@@ -25,7 +25,7 @@ export function ValueInput() {
     setPrefix(input.currency);
   }, [input.currency]);
   
-  const getFormat = (value: string) => {
+  const getFormat = (value: number) => {
     return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
 
@@ -46,11 +46,12 @@ export function ValueInput() {
           />
           <InputNumber
             style={{ width: '300px' }} 
-            formatter={(value) => getFormat(value)}
+            formatter={(value) => getFormat(value ?? 0)}
             parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
             size="large" 
             prefix={prefix} 
-            onChange={onChange} 
+            onChange={onChange}
+            value={input.income ?? 0}
             />
         </div>
       </ConfigProvider>
